@@ -1,1 +1,33 @@
-<! -- placeHolder --!>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Juan Claudio's Revenge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="game-container">
+    <h1 class="title">Juan Claudio's Revenge 👾</h1>
+
+    <div class="ui">
+      <div class="scoreboard">
+        <span>Score: <span id="score">0</span></span>
+        <span>High Score: <span id="highScore">0</span></span>
+        <span>Level: <span id="level">1</span></span>
+      </div>
+      <div id="message" class="message"></div>
+    </div>
+
+    <canvas id="gameCanvas" width="600" height="600"></canvas>
+
+    <div class="instructions">
+      <p><strong>Controls:</strong> ← → to move, SPACE to shoot, ENTER to start/restart.</p>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
+
