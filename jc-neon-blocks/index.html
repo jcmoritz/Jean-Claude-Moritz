@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Juan Claudio's Neon Blocks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/jc-neon-blocks.css" />
+</head>
+<body>
+  <div class="bg-outer">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+  </div>
+
+  <main class="game-shell">
+    <header class="game-header">
+      <div class="game-title">
+        <span class="game-title-kicker">JC ARCADE</span>
+        <h1>Juan Claudio's Neon Blocks</h1>
+      </div>
+      <div class="game-meta">
+        <span class="pill pill-live">PLAYABLE</span>
+        <span class="pill pill-genre">Puzzle • Retro • Sci‑Fi</span>
+      </div>
+    </header>
+
+    <section class="game-main">
+      <div class="canvas-wrap">
+        <canvas id="tetris" width="240" height="400"></canvas>
+        <div class="canvas-overlay" id="startOverlay">
+          <div class="overlay-inner">
+            <div class="overlay-title">Press any key to enter</div>
+            <div class="overlay-sub">Neon Blocks Protocol</div>
+            <div class="overlay-hint">
+              Arrow keys to move • Space to drop • P to pause • R to reset
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side-panel">
+        <div class="panel-block">
+          <div class="panel-label">Score</div>
+          <div class="panel-value" id="score">0</div>
+        </div>
+
+        <div class="panel-block">
+          <div class="panel-label">Lines Cleared</div>
+          <div class="panel-value" id="lines">0</div>
+        </div>
+
+        <div class="panel-block">
+          <div class="panel-label">Level</div>
+          <div class="panel-value" id="level">1</div>
+        </div>
+
+        <div class="panel-block panel-status">
+          <div class="panel-label">Status</div>
+          <div class="panel-status-text" id="status">
+            Awaiting pilot input…
+          </div>
+        </div>
+
+        <div class="panel-block panel-keys">
+          <div class="panel-label">Controls</div>
+          <ul class="key-list">
+            <li><span class="key-pill">← →</span> Move</li>
+            <li><span class="key-pill">↑</span> Rotate</li>
+            <li><span class="key-pill">↓</span> Soft drop</li>
+            <li><span class="key-pill">Space</span> Hard drop</li>
+            <li><span class="key-pill">P</span> Pause</li>
+            <li><span class="key-pill">R</span> Restart</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <footer class="game-footer">
+      <div class="footer-text">
+        Part of the <span>Juan Claudio’s Revenge</span> universe · Built for the Vail Valley arcade in your browser.
+      </div>
+    </footer>
+  </main>
+
+  <script src="js/jc-neon-blocks.js"></script>
+</body>
+</html>
 
