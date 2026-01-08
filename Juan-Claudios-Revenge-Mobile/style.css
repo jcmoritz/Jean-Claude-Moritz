@@ -108,3 +108,11 @@ canvas {
     gap: 4px;
   }
 }
+html, body {
+  touch-action: none;
+  overscroll-behavior: none;
+}
+canvas {
+  touch-action: none;
+}
+
