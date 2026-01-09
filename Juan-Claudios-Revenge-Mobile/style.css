@@ -111,8 +111,14 @@ canvas {
 html, body {
   touch-action: none;
   overscroll-behavior: none;
+  overflow: hidden; /* Prevent Safari from scrolling the page */
 }
+
 canvas {
   touch-action: none;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
+
 
