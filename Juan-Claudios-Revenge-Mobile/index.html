@@ -6,11 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
+  
+<body onload="loadingDone()">
   <div class="game-container">
     <h1 class="title">Juan Claudio's Revenge - Mobile 👾</h1>
-    <body onload="loadingDone()">
     <div class="ui">
       <div class="scoreboard">
         <span>Score: <span id="score">0</span></span>
@@ -26,7 +25,7 @@
       <p><strong>Controls:</strong> Swipe ← → to move, Touch to shoot, Hold Touch for multiple shots.</p>
     </div>
   </div>
-
   <script src="game.js?v=2"></script>
 </body>
+  
 </html>
