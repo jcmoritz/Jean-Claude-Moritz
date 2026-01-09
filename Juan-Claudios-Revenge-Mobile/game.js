@@ -548,8 +548,30 @@ function drawOverlayText() {
     ctx.fillText("Juan Claudio's Revenge", canvas.width / 2, canvas.height / 2 - 20);
     ctx.font = "16px 'Segoe UI'";
     ctx.fillText("Press ENTER to begin", canvas.width / 2, canvas.height / 2 + 10);
-  } else if (gameState === "gameOver") {
-    ctx.font = "26px 'Segoe UI'";
-    ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2 - 20);
-    ctx.font = "16px 'Segoe UI'";
-    ctx.fillText("Press ENTER to try again", canvas.width / 2, canvas.height / 
+ } else if (gameState === "gameOver") {
+  ctx.font = "26px 'Segoe UI'";
+  ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2 - 20);
+  ctx.font = "16px 'Segoe UI'";
+  ctx.fillText("Press ENTER to try again", canvas.width / 2, canvas.height / 2 + 10);
+}
+ 
+
+function draw() {
+  drawBackground();
+  drawShip();
+  drawEnemies();
+  drawBoss();
+  drawBullets();
+  drawExplosions();
+  drawOverlayText();
+}
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+
+                 
