@@ -11,6 +11,9 @@ const highScoreEl = document.getElementById("highScore");
 const levelEl = document.getElementById("level");
 const messageEl = document.getElementById("message");
 
+alert("Game.js is running");
+
+
 // Detect mobile
 const isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
