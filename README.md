@@ -26,6 +26,7 @@ If you want to improve something, jump in.
 If you have an idea, open an issue or submit a pull request — I’d love to see it.
 
 Current Projects in This Repository
+
 🎮 Juan Claudio’s Revenge
 A classic browser‑based space‑invader shooter with levels, bosses, and retro charm.
 
@@ -33,7 +34,10 @@ A classic browser‑based space‑invader shooter with levels, bosses, and retro
 A fast, colorful block‑breaker with glowing neon visuals and smooth arcade gameplay.
 
 📱 Juan Claudio’s Revenge — Mobile Edition
-A touch‑optimized version of the original game, built for iPhone and Android with swipe controls and mobile‑friendly UI.
+A touch‑optimized version of the original game, built for iPhone and Android with swipe controls and mobile‑friendly UI. This one I am still working on the controls for mobile. Need help on this one. 
+
+📱 Juan Claudio’s Neon Blocks — Mobile Edition
+Next one up. 
 
 These projects are living examples of what this space is about:
 learning, experimenting, and building things that are fun to share.
