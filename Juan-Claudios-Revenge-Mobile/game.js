@@ -1,7 +1,7 @@
 // ------------------------------------------------------------
 // JUAN CLAUDIO'S REVENGE — FULL GAME ENGINE (MOBILE READY)
 // ------------------------------------------------------------
-document.body.style.background = "red";
+
 // Canvas + UI
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -12,7 +12,6 @@ const levelEl = document.getElementById("level");
 const messageEl = document.getElementById("message");
 
 alert("Game.js is running");
-
 
 // Detect mobile
 const isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
