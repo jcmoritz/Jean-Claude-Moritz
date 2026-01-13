@@ -45,6 +45,8 @@ learning, experimenting, and building things that are fun to share.
 This is a community space, not a polished product.
 Let’s build it together.
 
+-Jean-Claude
+
 Merci Bien,  
 Jean-Claude Moritz  
 jean-claude-moritz.com
