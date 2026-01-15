@@ -121,4 +121,18 @@ canvas {
   pointer-events: auto;
 }
 
+/* Add this to ensure the canvas stays within the iPhone screen height */
+canvas {
+  max-height: 70vh; /* Keeps it from disappearing off the bottom */
+  touch-action: none;
+  -webkit-user-select: none; /* Prevents text selection popups on long-press */
+  user-select: none;
+}
 
+/* Fix for the game container on small screens */
+@media (max-width: 700px) {
+  .game-container {
+    margin-top: 5px; /* Reduce top margin to save space */
+    padding: 10px;
+  }
+}
