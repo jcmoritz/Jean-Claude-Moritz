@@ -45,11 +45,11 @@ let touchStartTime = null;
 
 // Sounds
 const sounds = {
-  shoot: new Audio("assets/sounds/shoot.wav"),
-  explosion: new Audio("assets/sounds/explosion.wav"),
-  levelUp: new Audio("assets/sounds/level-up.wav"),
-  bossIntro: new Audio("assets/sounds/boss-intro.wav"),
-  gameOver: new Audio("assets/sounds/game-over.wav")
+  shoot: new Audio("Assets/sounds/shoot.wav"),
+  explosion: new Audio("Assets/sounds/explosion.wav"),
+  levelUp: new Audio("Assets/sounds/level-up.wav"),
+  bossIntro: new Audio("Assets/sounds/boss-intro.wav"),
+  gameOver: new Audio("Assets/sounds/game-over.wav")
 };
 
 // Helper to play sound safely on iPhone
