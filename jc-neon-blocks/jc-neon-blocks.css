@@ -133,3 +133,74 @@ html, body {
 @media (max-width: 900px) {
   .mobile-system-controls { display: flex; }
 }
+
+/* 1. Container for the controls at the bottom */
+#mobileControls {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom)); /* Lifted up for visibility */
+  left: 0;
+  width: 100%;
+  height: 160px; /* Force enough height so buttons aren't cut off */
+  
+  display: flex;
+  justify-content: space-between; /* D-pad on left, Action on right */
+  align-items: flex-end; /* Align to bottom */
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 10000; /* Super high priority */
+  pointer-events: none; /* Let clicks pass through empty space */
+}
+
+/* 2. The D-Pad Grid - Forces the Cross Shape */
+.dpad {
+  pointer-events: auto; /* Re-enable clicks for buttons */
+  display: grid;
+  grid-template-columns: 60px 60px 60px; /* 3 columns */
+  grid-template-rows: 60px 60px 60px;    /* 3 rows */
+  grid-template-areas:
+    ".    up    ."
+    "left  .    right"
+    ".    down  .";
+  gap: 5px; /* Spacing between buttons */
+}
+
+/* 3. Map buttons to grid areas */
+.ctrl-btn.up    { grid-area: up; }
+.ctrl-btn.left  { grid-area: left; }
+.ctrl-btn.right { grid-area: right; }
+.ctrl-btn.down  { grid-area: down; }
+
+/* 4. Style the buttons so they are big and visible */
+.ctrl-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid #0ff; /* Cyan border */
+  color: #0ff;
+  border-radius: 50%; /* Circles */
+  font-size: 24px;
+  font-weight: bold;
+  touch-action: manipulation; /* Improves touch response */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 10px #0ff; /* Neon glow */
+}
+
+.ctrl-btn:active {
+  background: rgba(0, 255, 255, 0.5); /* Highlight on tap */
+}
+
+/* 5. The Drop Button (Right side) */
+.actions {
+  pointer-events: auto;
+  margin-bottom: 60px; /* Align with middle of D-pad */
+}
+
+.ctrl-btn.drop {
+  width: 80px;
+  height: 80px;
+  border-color: #f0f; /* Magenta for drop */
+  color: #f0f;
+  font-size: 18px;
+  box-shadow: 0 0 10px #f0f;
+}
