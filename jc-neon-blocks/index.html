@@ -1,10 +1,45 @@
-n<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Juan Claudio's Neon Blocks - Mobile 1.0</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="stylesheet" href="jc-neon-blocks.css" />
+
+  <style>
+    /* 1. Force the game to fit the ACTUAL visible screen (subtracting the URL bar) */
+    html, body {
+      height: 100dvh; /* Dynamic Viewport Height */
+      width: 100vw;
+      overflow: hidden; /* No scrolling allowed */
+      position: fixed; /* Locks the page in place on iOS */
+      margin: 0;
+      padding: 0;
+    }
+
+    .game-shell {
+      height: 100dvh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      /* 2. Respect the iPhone Home Indicator (the white/black line at bottom) */
+      padding-bottom: env(safe-area-inset-bottom); 
+      box-sizing: border-box;
+    }
+
+    /* 3. Lift the controls up slightly so they clear the browser UI */
+    #mobileControls {
+      bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+      /* Ensure they stay on top of everything */
+      z-index: 9999; 
+    }
+
+    /* 4. Ensure system controls (Pause/Reset) are also safe */
+    .mobile-system-controls {
+      z-index: 9999;
+    }
+  </style>
+
 </head>
 <body>
   <div class="bg-outer">
@@ -67,10 +102,12 @@ n<!DOCTYPE html>
         </div>
       </aside>
     </section>
+
     <div class="mobile-system-controls">
       <button class="sys-btn" id="btnPause">PAUSE</button>
       <button class="sys-btn" id="btnReset">RESTART</button>
     </div>
+
     <div class="mobile-controls" id="mobileControls">
       <div class="dpad">
         <button class="ctrl-btn up" id="btnUp">↑</button>
