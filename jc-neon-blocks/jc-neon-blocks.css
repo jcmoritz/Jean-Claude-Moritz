@@ -113,3 +113,23 @@ html, body {
   .mobile-controls { display: flex; }
   .game-shell { margin: 10px; padding: 15px; }
 }
+.mobile-system-controls {
+  display: none;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.sys-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--text-soft);
+  color: var(--text-soft);
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .mobile-system-controls { display: flex; }
+}
