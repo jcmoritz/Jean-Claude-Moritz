@@ -342,15 +342,14 @@ function resetFullGame() {
     playerReset();
 }
 
-/* MOBILE LOGIC */
+/* IMPROVED MOBILE LOGIC */
 
 function handleStart() {
-    if (!started && !gameOver) {
+    if (!started || gameOver) {
+        resetFullGame(); // This ensures everything is fresh
         started = true;
         startOverlay.classList.add('hidden');
         statusElem.textContent = 'Live protocol – Active';
-    } else if (gameOver) {
-        resetFullGame();
     }
 }
 
@@ -358,22 +357,39 @@ function bindTouch(id, action) {
     const btn = document.getElementById(id);
     if (!btn) return;
 
+    // Use 'touchstart' for immediate response
     btn.addEventListener('touchstart', (e) => {
         e.preventDefault();
+        
+        // If game hasn't started, any button press starts it
         if (!started || gameOver) {
             handleStart();
-        } else if (!paused) {
+            return;
+        }
+
+        if (!paused) {
             action();
+            // Optional: Small haptic feedback for Android
+            if (navigator.vibrate) navigator.vibrate(10);
         }
     }, { passive: false });
 }
 
+// Bind Movement
 bindTouch('btnLeft', () => playerMove(-1));
 bindTouch('btnRight', () => playerMove(1));
 bindTouch('btnUp', () => playerRotate(1));
 bindTouch('btnDown', () => playerDrop());
 bindTouch('btnDrop', () => playerHardDrop());
 
+// Bind System Buttons
+bindTouch('btnPause', () => {
+    paused = !paused;
+    statusElem.textContent = paused ? 'Paused' : 'Live protocol';
+});
+bindTouch('btnReset', () => resetFullGame());
+
+// Start Overlay Tap
 startOverlay.addEventListener('touchstart', (e) => {
     e.preventDefault();
     handleStart();
