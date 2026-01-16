@@ -1,3 +1,7 @@
+body {
+    overscroll-behavior-y: contain;
+}
+
 :root {
   --bg: #020412;
   --bg-alt: #05081c;
