@@ -145,7 +145,7 @@ function playerReset() {
 
   if (collide(arena, player)) {
     arena.forEach(row => row.fill(0));
-    statusElem.textContent = 'Game over – press R to re‑enter protocol';
+    statusElem.textContent = 'Game over – press R or Tap to re‑enter protocol';
     statusElem.classList.add('game-over');
     gameOver = true;
   }
@@ -207,7 +207,6 @@ function drawMatrix(matrix, offset) {
         context.shadowBlur = 15;
         context.fillRect(x + offset.x, y + offset.y, 1, 1);
 
-        // subtle inner block
         context.shadowBlur = 0;
         context.fillStyle = 'rgba(0,0,0,0.28)';
         context.fillRect(x + offset.x + 0.15, y + offset.y + 0.15, 0.7, 0.7);
@@ -322,6 +321,12 @@ document.addEventListener('keydown', event => {
       ? 'Paused – P to resume protocol'
       : 'Live protocol – P to pause';
   } else if (event.key === 'r' || event.key === 'R') {
+    resetFullGame();
+  }
+});
+
+// Helper for full reset
+function resetFullGame() {
     arena.forEach(row => row.fill(0));
     player.score = 0;
     player.lines = 0;
@@ -331,47 +336,24 @@ document.addEventListener('keydown', event => {
     gameOver = false;
     paused = false;
     started = true;
-    statusElem.textContent = 'Live protocol – P to pause';
+    statusElem.textContent = 'Live protocol – Active';
     statusElem.classList.remove('game-over');
     startOverlay.classList.add('hidden');
     playerReset();
-  }
-});
+}
 
-playerReset();
-updateScore();
-update();
-/* Keep all your existing code at the top... I am adding the touch logic to the bottom */
-
-// ... (Your existing code: createPiece, collide, rotate, playerMove, updateScore, etc.) ...
-
-/* ADD THIS TO THE END OF YOUR jc-neon-blocks.js */
+/* MOBILE LOGIC */
 
 function handleStart() {
     if (!started && !gameOver) {
         started = true;
         startOverlay.classList.add('hidden');
         statusElem.textContent = 'Live protocol – Active';
-        playerReset();
     } else if (gameOver) {
-        // Reset game state
-        arena.forEach(row => row.fill(0));
-        player.score = 0;
-        player.lines = 0;
-        player.level = 1;
-        dropInterval = 1000;
-        updateScore();
-        gameOver = false;
-        paused = false;
-        started = true;
-        statusElem.textContent = 'Live protocol – Active';
-        statusElem.classList.remove('game-over');
-        startOverlay.classList.add('hidden');
-        playerReset();
+        resetFullGame();
     }
 }
 
-// Function to map touch events to game actions
 function bindTouch(id, action) {
     const btn = document.getElementById(id);
     if (!btn) return;
@@ -386,15 +368,17 @@ function bindTouch(id, action) {
     }, { passive: false });
 }
 
-// Bind mobile buttons
 bindTouch('btnLeft', () => playerMove(-1));
 bindTouch('btnRight', () => playerMove(1));
 bindTouch('btnUp', () => playerRotate(1));
 bindTouch('btnDown', () => playerDrop());
 bindTouch('btnDrop', () => playerHardDrop());
 
-// Start the game if the overlay is tapped
 startOverlay.addEventListener('touchstart', (e) => {
     e.preventDefault();
     handleStart();
 }, { passive: false });
+
+playerReset();
+updateScore();
+update();
