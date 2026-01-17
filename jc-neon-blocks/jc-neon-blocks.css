@@ -1,224 +1,137 @@
-:root {
-  --bg: #020412;
-  --bg-alt: #05081c;
-  --accent: #4b7cf5;
-  --accent-soft: rgba(75, 124, 245, 0.35);
-  --accent-pink: #ff4b9a;
-  --accent-cyan: #44f1ff;
-  --text-main: #e3e8ff;
-  --text-soft: #a1a8d9;
-  --danger: #ff6b81;
-  --warning: #ffc857;
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-
-html, body {
-  margin: 0; padding: 0; 
-  /* THE FIX: Use Dynamic Viewport Height for iOS */
-  height: 100dvh; 
-  width: 100vw;
-  
-  background: radial-gradient(circle at top, #080c2a, #020412);
-  color: var(--text-main);
-  font-family: system-ui, -apple-system, sans-serif;
-  
-  /* Lock the page to prevent scrolling while playing */
-  overflow: hidden; 
-  position: fixed; 
-}
-
-/* --- BACKGROUND FX --- */
-.bg-outer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-.bg-grid { 
-  position: absolute; inset: -50px; 
-  background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); 
-  background-size: 40px 40px; 
-  transform: perspective(500px) rotateX(60deg) translateY(80px); 
-  opacity: 0.4; 
-}
-.bg-glow { position: absolute; width: 420px; height: 420px; filter: blur(60px); opacity: 0.4; }
-.bg-glow-1 { background: radial-gradient(circle, #4b7cf5, transparent 70%); top: 10%; left: 10%; }
-.bg-glow-2 { background: radial-gradient(circle, #ff4b9a, transparent 70%); bottom: 5%; right: 5%; }
-
-/* --- GAME SHELL --- */
-.game-shell {
-  position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 24px;
-  background: radial-gradient(circle at top left, #0b1033, #020412);
-  border-radius: 16px; border: 1px solid rgba(131, 146, 255, 0.35);
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75);
-  
-  /* Flex layout to handle full height on mobile */
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.game-main {
-  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
-  gap: 24px;
-  flex: 1; /* Take up remaining space */
-  align-items: center; /* Center canvas vertically */
-}
-
-/* --- CANVAS & UI --- */
-.canvas-wrap {
-  position: relative; padding: 14px; border-radius: 14px;
-  background: radial-gradient(circle at top, #05081d, #02030b);
-  box-shadow: 0 0 30px rgba(75, 124, 245, 0.5);
-  margin: 0 auto; /* Center it */
-}
-
-#tetris { display: block; background: #05071b; border: 1px solid rgba(157,173,255,0.4); }
-
-.canvas-overlay {
-  position: absolute; inset: 14px; border-radius: 6px;
-  background: rgba(2, 3, 16, 0.95); display: flex; justify-content: center; align-items: center;
-  backdrop-filter: blur(4px); z-index: 10;
-}
-.canvas-overlay.hidden { opacity: 0; pointer-events: none; }
-
-/* --- SIDE PANEL --- */
-.side-panel {
-  display: flex; flex-direction: column; gap: 15px;
-}
-/* (Keep your existing side panel styling logic here if needed, omitted for brevity) */
-
-/* --- MOBILE CONTROLS (Hidden by default on Desktop) --- */
-#mobileControls, .mobile-system-controls {
-  display: none;
-}
-
 /* --- RESPONSIVE / MOBILE STYLES --- */
 @media (max-width: 900px) {
-  /* 1. Tighter Game Shell */
+  /* 1. Reset Game Shell */
   .game-shell {
-    margin: 0; padding: 0; /* Remove padding to maximize screen usage */
-    border: none; border-radius: 0;
-    width: 100%;
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
     justify-content: flex-start;
   }
 
   .game-main { 
-    grid-template-columns: 1fr; 
-    justify-items: center; 
+    width: 100%;
+    display: flex;
+    justify-content: center;
     align-items: flex-start;
-    margin-top: 10px; /* Reduced top margin */
+    margin-top: 5px; /* Tiny top margin */
+    flex: 0 0 auto; 
   }
   
-  .side-panel { display: none; } /* Hide sidebar on mobile */
+  .side-panel { display: none; } 
 
   /* 2. Smaller Canvas Wrapper */
   .canvas-wrap {
-    padding: 8px; /* Reduced from 14px */
-    /* meaningful max-height ensures board doesn't overlap controls */
-    max-height: 60vh; 
+    padding: 6px; 
+    /* Force canvas to be smaller so controls fit easily */
+    max-height: 48vh; 
     width: auto;
-    /* Maintain aspect ratio so it doesn't stretch weirdly */
     aspect-ratio: 240/400; 
+    box-shadow: 0 0 20px rgba(75, 124, 245, 0.3);
   }
   
   #tetris {
-    /* Ensure canvas fits inside the smaller wrapper */
-    height: 100%;
-    width: 100%;
+    height: 100%; width: 100%;
     object-fit: contain;
   }
-  
-  /* Show System Buttons (Pause/Restart) */
-  .mobile-system-controls {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    z-index: 50;
-  }
 
-  .sys-btn {
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid var(--text-soft);
-    color: var(--text-soft);
-    padding: 6px 10px; /* Slightly smaller */
-    border-radius: 6px;
-    font-size: 10px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  /* --- TOUCH CONTROLS CONTAINER --- */
+  /* 3. The Control Container */
   #mobileControls {
     position: fixed;
-    /* Lift controls up above the iOS Home Bar */
-    bottom: calc(10px + env(safe-area-inset-bottom)); 
-    left: 0;
+    bottom: calc(5px + env(safe-area-inset-bottom));
+    left: 0; 
     width: 100%;
-    height: 150px; /* Reduced height from 180px */
     
     display: flex;
-    justify-content: space-between; /* D-pad Left, Action Right */
-    align-items: flex-end; 
-    padding: 0 15px;
+    flex-direction: column; /* Stack controls vertically */
+    justify-content: flex-end;
+    gap: 12px; /* Space between Game buttons and System buttons */
+    
+    padding: 10px 20px;
     z-index: 10000;
-    pointer-events: none; 
+    pointer-events: none;
+  }
+  
+  /* Hide the old system controls container if it exists */
+  .mobile-system-controls { display: none; }
+
+  /* --- ROW 1: GAMEPLAY BUTTONS --- */
+  .control-row-main {
+    display: flex;
+    justify-content: space-between; /* Spread Dpad and Drop apart */
+    align-items: center;
+    width: 100%;
+    max-width: 360px; 
+    margin: 0 auto; 
   }
 
-  /* --- SMALLER D-PAD GRID --- */
+  /* D-PAD */
   .dpad {
-    pointer-events: auto; 
+    pointer-events: auto;
     display: grid;
-    /* Reduced grid size from 60px to 48px */
-    grid-template-columns: 48px 48px 48px;
-    grid-template-rows: 48px 48px 48px;
+    grid-template-columns: 44px 44px 44px; /* Slightly smaller */
+    grid-template-rows: 44px 44px 44px;
     grid-template-areas:
       ".    up    ."
       "left  .    right"
       ".    down  .";
-    gap: 4px; /* Tighter gap */
+    gap: 4px; 
   }
 
-  /* Assign buttons to grid */
-  .ctrl-btn.up    { grid-area: up; }
-  .ctrl-btn.left  { grid-area: left; }
-  .ctrl-btn.right { grid-area: right; }
-  .ctrl-btn.down  { grid-area: down; }
+  /* ACTION BUTTON */
+  .actions {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 126px; 
+  }
 
   /* Button Styling */
   .ctrl-btn {
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid var(--accent-cyan);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--accent-cyan);
     color: var(--accent-cyan);
     border-radius: 50%;
-    font-size: 20px; /* Smaller arrow icons */
+    font-size: 20px; 
     font-weight: bold;
     display: flex; justify-content: center; align-items: center;
-    box-shadow: 0 0 10px rgba(68, 241, 255, 0.3);
+    box-shadow: 0 0 8px rgba(68, 241, 255, 0.2);
     touch-action: manipulation;
   }
 
   .ctrl-btn:active {
     background: var(--accent-cyan);
     color: #000;
-    transform: scale(0.95);
-  }
-
-  /* --- SMALLER ACTION BUTTON (DROP) --- */
-  .actions {
-    pointer-events: auto;
-    margin-bottom: 48px; /* Align with D-pad center */
   }
 
   .ctrl-btn.drop {
-    /* Reduced from 80px to 64px */
-    width: 64px; height: 64px;
+    width: 60px; height: 60px; 
     border-color: var(--accent-pink);
     color: var(--accent-pink);
-    box-shadow: 0 0 10px rgba(255, 75, 154, 0.4);
     font-size: 14px;
   }
   
-  .ctrl-btn.drop:active {
-    background: var(--accent-pink);
+  .ctrl-btn.drop:active { background: var(--accent-pink); }
+
+  /* --- ROW 2: SYSTEM BUTTONS (Pause/Reset) --- */
+  .control-row-system {
+    pointer-events: auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .sys-btn {
+    background: rgba(5, 8, 28, 0.85);
+    border: 1px solid var(--text-soft);
+    color: var(--text-soft);
+    padding: 10px 30px;
+    border-radius: 20px; /* Pill shape */
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
   }
 }
