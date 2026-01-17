@@ -117,24 +117,25 @@ html, body {
   .game-shell {
     margin: 0; padding: 0;
     width: 100%; height: 100%;
-    justify-content: flex-start;
+    /* Ensure the main column is centered */
+    align-items: center; 
   }
 
   .game-main { 
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: 5px; /* Tiny top margin */
+    flex-direction: column;
+    align-items: center; /* Centers the canvas horizontally */
+    margin-top: 5px; 
     flex: 0 0 auto; 
   }
   
-  .side-panel { display: none; } 
+  /* FORCE HIDE the 5 side panel blocks */
+  .side-panel { display: none !important; } 
 
   /* 2. Smaller Canvas Wrapper */
   .canvas-wrap {
     padding: 6px; 
-    /* Force canvas to be smaller so controls fit easily */
     max-height: 48vh; 
     width: auto;
     aspect-ratio: 240/400; 
@@ -146,43 +147,45 @@ html, body {
     object-fit: contain;
   }
   
-  .canvas-overlay { inset: 6px; } /* Match padding */
+  .canvas-overlay { inset: 6px; }
 
   /* 3. The Control Container */
   #mobileControls {
     position: fixed;
-    bottom: calc(5px + env(safe-area-inset-bottom));
+    bottom: calc(10px + env(safe-area-inset-bottom));
     left: 0; 
     width: 100%;
     
     display: flex;
-    flex-direction: column; /* Stack controls vertically */
+    flex-direction: column; 
     justify-content: flex-end;
-    gap: 12px; /* Space between Game buttons and System buttons */
+    align-items: center; /* This ensures the rows are centered on screen */
+    gap: 15px; 
     
-    padding: 10px 20px;
+    padding: 10px 0; /* Remove side padding to rely on centering */
     z-index: 10000;
     pointer-events: none;
   }
   
-  /* Hide the old system controls container if it exists */
   .mobile-system-controls { display: none; }
 
   /* --- ROW 1: GAMEPLAY BUTTONS --- */
   .control-row-main {
     display: flex;
-    justify-content: space-between; /* Spread Dpad and Drop apart */
+    /* CHANGE: Center the groups and use Gap instead of Space-Between */
+    justify-content: center; 
     align-items: center;
+    gap: 40px; /* Adjustable distance between D-Pad and Drop button */
+    
     width: 100%;
-    max-width: 360px; 
-    margin: 0 auto; 
+    max-width: 400px; 
   }
 
   /* D-PAD */
   .dpad {
     pointer-events: auto;
     display: grid;
-    grid-template-columns: 44px 44px 44px; /* Slightly smaller */
+    grid-template-columns: 44px 44px 44px; 
     grid-template-rows: 44px 44px 44px;
     grid-template-areas:
       ".    up    ."
@@ -203,7 +206,8 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 126px; 
+    /* Match the height of the D-Pad so it aligns perfectly */
+    height: 140px; 
   }
 
   /* Button Styling */
@@ -226,7 +230,7 @@ html, body {
   }
 
   .ctrl-btn.drop {
-    width: 60px; height: 60px; 
+    width: 64px; height: 64px; 
     border-color: var(--accent-pink);
     color: var(--accent-pink);
     font-size: 14px;
@@ -238,10 +242,9 @@ html, body {
   .control-row-system {
     pointer-events: auto;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Center these explicitly */
     gap: 20px;
     width: 100%;
-    margin-bottom: 5px;
   }
 
   .sys-btn {
@@ -249,7 +252,7 @@ html, body {
     border: 1px solid var(--text-soft);
     color: var(--text-soft);
     padding: 10px 30px;
-    border-radius: 20px; /* Pill shape */
+    border-radius: 20px; 
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
