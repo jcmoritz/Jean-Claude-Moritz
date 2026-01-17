@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="jc-neon-blocks.css" />
 
   <style>
-    /* 1. Force the game to fit the ACTUAL visible screen (subtracting the URL bar) */
+    /* 1. Force the game to fit the ACTUAL visible screen */
     html, body {
       height: 100dvh; /* Dynamic Viewport Height */
       width: 100vw;
@@ -17,26 +17,14 @@
       padding: 0;
     }
 
+    /* 2. Respect iPhone safe areas */
     .game-shell {
       height: 100dvh;
       width: 100%;
       display: flex;
       flex-direction: column;
-      /* 2. Respect the iPhone Home Indicator (the white/black line at bottom) */
       padding-bottom: env(safe-area-inset-bottom); 
       box-sizing: border-box;
-    }
-
-    /* 3. Lift the controls up slightly so they clear the browser UI */
-    #mobileControls {
-      bottom: calc(10px + env(safe-area-inset-bottom)) !important;
-      /* Ensure they stay on top of everything */
-      z-index: 9999; 
-    }
-
-    /* 4. Ensure system controls (Pause/Reset) are also safe */
-    .mobile-system-controls {
-      z-index: 9999;
     }
   </style>
 
@@ -60,11 +48,8 @@
         <canvas id="tetris" width="240" height="400"></canvas>
         <div class="canvas-overlay" id="startOverlay">
           <div class="overlay-inner">
-            <div class="overlay-title">Press any key or Tap</div>
+            <div class="overlay-title">Tap to Start</div>
             <div class="overlay-sub">Neon Blocks Protocol</div>
-            <div class="overlay-hint">
-              Arrow keys to move • Space to drop • P to pause • R to reset
-            </div>
           </div>
         </div>
       </div>
@@ -98,25 +83,28 @@
       </aside>
     </section>
 
-    <div class="mobile-system-controls">
-      <button class="sys-btn" id="btnPause">PAUSE</button>
-      <button class="sys-btn" id="btnReset">RESTART</button>
-    </div>
-
     <div class="mobile-controls" id="mobileControls">
-      <div class="dpad">
-        <button class="ctrl-btn up" id="btnUp">↑</button>
-        <button class="ctrl-btn left" id="btnLeft">←</button>
-        <button class="ctrl-btn right" id="btnRight">→</button>
-        <button class="ctrl-btn down" id="btnDown">↓</button>
+      
+      <div class="control-row-main">
+        <div class="dpad">
+          <button class="ctrl-btn up" id="btnUp">↑</button>
+          <button class="ctrl-btn left" id="btnLeft">←</button>
+          <button class="ctrl-btn right" id="btnRight">→</button>
+          <button class="ctrl-btn down" id="btnDown">↓</button>
+        </div>
+        <div class="actions">
+          <button class="ctrl-btn drop" id="btnDrop">DROP</button>
+        </div>
       </div>
-      <div class="actions">
-        <button class="ctrl-btn drop" id="btnDrop">DROP</button>
+
+      <div class="control-row-system">
+        <button class="sys-btn" id="btnPause">PAUSE</button>
+        <button class="sys-btn" id="btnReset">RESTART</button>
       </div>
+      
     </div>
   </main>
 
   <script src="jc-neon-blocks.js"></script>
 </body>
 </html>
-
