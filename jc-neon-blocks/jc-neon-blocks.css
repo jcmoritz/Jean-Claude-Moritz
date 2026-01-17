@@ -91,8 +91,9 @@ html, body {
 
 /* --- RESPONSIVE / MOBILE STYLES --- */
 @media (max-width: 900px) {
+  /* 1. Tighter Game Shell */
   .game-shell {
-    margin: 0; padding: 10px;
+    margin: 0; padding: 0; /* Remove padding to maximize screen usage */
     border: none; border-radius: 0;
     width: 100%;
     justify-content: flex-start;
@@ -102,10 +103,27 @@ html, body {
     grid-template-columns: 1fr; 
     justify-items: center; 
     align-items: flex-start;
-    margin-top: 20px;
+    margin-top: 10px; /* Reduced top margin */
   }
   
   .side-panel { display: none; } /* Hide sidebar on mobile */
+
+  /* 2. Smaller Canvas Wrapper */
+  .canvas-wrap {
+    padding: 8px; /* Reduced from 14px */
+    /* meaningful max-height ensures board doesn't overlap controls */
+    max-height: 60vh; 
+    width: auto;
+    /* Maintain aspect ratio so it doesn't stretch weirdly */
+    aspect-ratio: 240/400; 
+  }
+  
+  #tetris {
+    /* Ensure canvas fits inside the smaller wrapper */
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
   
   /* Show System Buttons (Pause/Restart) */
   .mobile-system-controls {
@@ -122,9 +140,9 @@ html, body {
     background: rgba(0, 0, 0, 0.6);
     border: 1px solid var(--text-soft);
     color: var(--text-soft);
-    padding: 8px 12px;
+    padding: 6px 10px; /* Slightly smaller */
     border-radius: 6px;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: bold;
     text-transform: uppercase;
   }
@@ -133,30 +151,31 @@ html, body {
   #mobileControls {
     position: fixed;
     /* Lift controls up above the iOS Home Bar */
-    bottom: calc(20px + env(safe-area-inset-bottom)); 
+    bottom: calc(10px + env(safe-area-inset-bottom)); 
     left: 0;
     width: 100%;
-    height: 180px; 
+    height: 150px; /* Reduced height from 180px */
     
     display: flex;
     justify-content: space-between; /* D-pad Left, Action Right */
     align-items: flex-end; 
-    padding: 0 20px;
+    padding: 0 15px;
     z-index: 10000;
-    pointer-events: none; /* Allows clicks to pass through empty space */
+    pointer-events: none; 
   }
 
-  /* --- D-PAD GRID --- */
+  /* --- SMALLER D-PAD GRID --- */
   .dpad {
-    pointer-events: auto; /* Re-enable clicks */
+    pointer-events: auto; 
     display: grid;
-    grid-template-columns: 60px 60px 60px;
-    grid-template-rows: 60px 60px 60px;
+    /* Reduced grid size from 60px to 48px */
+    grid-template-columns: 48px 48px 48px;
+    grid-template-rows: 48px 48px 48px;
     grid-template-areas:
       ".    up    ."
       "left  .    right"
       ".    down  .";
-    gap: 5px;
+    gap: 4px; /* Tighter gap */
   }
 
   /* Assign buttons to grid */
@@ -170,8 +189,8 @@ html, body {
     background: rgba(255, 255, 255, 0.15);
     border: 2px solid var(--accent-cyan);
     color: var(--accent-cyan);
-    border-radius: 50%; /* Circle buttons */
-    font-size: 24px;
+    border-radius: 50%;
+    font-size: 20px; /* Smaller arrow icons */
     font-weight: bold;
     display: flex; justify-content: center; align-items: center;
     box-shadow: 0 0 10px rgba(68, 241, 255, 0.3);
@@ -184,18 +203,19 @@ html, body {
     transform: scale(0.95);
   }
 
-  /* --- ACTION BUTTON (DROP) --- */
+  /* --- SMALLER ACTION BUTTON (DROP) --- */
   .actions {
     pointer-events: auto;
-    margin-bottom: 60px; /* Align horizontally with D-pad center */
+    margin-bottom: 48px; /* Align with D-pad center */
   }
 
   .ctrl-btn.drop {
-    width: 80px; height: 80px;
+    /* Reduced from 80px to 64px */
+    width: 64px; height: 64px;
     border-color: var(--accent-pink);
     color: var(--accent-pink);
     box-shadow: 0 0 10px rgba(255, 75, 154, 0.4);
-    font-size: 16px;
+    font-size: 14px;
   }
   
   .ctrl-btn.drop:active {
