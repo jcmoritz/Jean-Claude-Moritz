@@ -92,4 +92,174 @@ html, body {
 .side-panel {
   display: flex; flex-direction: column; gap: 15px;
 }
-.panel-block { background: rgba(255, 255, 255
+.panel-block { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+.panel-label { color: var(--text-soft); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.panel-value { font-family: 'Courier New', monospace; font-size: 1.5rem; font-weight: bold; color: var(--accent-cyan); text-shadow: 0 0 8px rgba(68, 241, 255, 0.4); }
+.panel-status { display: block; text-align: center; }
+.panel-status-text { margin-top: 5px; color: var(--warning); font-size: 0.9rem; min-height: 1.2em; }
+.game-over { color: var(--danger); text-shadow: 0 0 8px var(--danger); animation: pulse 1s infinite alternate; }
+
+.panel-keys { display: block; }
+.key-list { list-style: none; padding: 0; margin: 10px 0 0 0; font-size: 0.85rem; color: #888; }
+.key-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.key-pill { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; color: #fff; font-size: 0.75rem; font-family: monospace; border: 1px solid rgba(255,255,255,0.2); }
+
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.6; } }
+
+/* --- MOBILE CONTROLS (Hidden by default on Desktop) --- */
+#mobileControls, .mobile-system-controls {
+  display: none;
+}
+
+/* --- RESPONSIVE / MOBILE STYLES --- */
+@media (max-width: 900px) {
+  /* 1. Reset Game Shell */
+  .game-shell {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    justify-content: flex-start;
+  }
+
+  .game-main { 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 5px; /* Tiny top margin */
+    flex: 0 0 auto; 
+  }
+  
+  .side-panel { display: none; } 
+
+  /* 2. Smaller Canvas Wrapper */
+  .canvas-wrap {
+    padding: 6px; 
+    /* Force canvas to be smaller so controls fit easily */
+    max-height: 48vh; 
+    width: auto;
+    aspect-ratio: 240/400; 
+    box-shadow: 0 0 20px rgba(75, 124, 245, 0.3);
+  }
+  
+  #tetris {
+    height: 100%; width: 100%;
+    object-fit: contain;
+  }
+  
+  .canvas-overlay { inset: 6px; } /* Match padding */
+
+  /* 3. The Control Container */
+  #mobileControls {
+    position: fixed;
+    bottom: calc(5px + env(safe-area-inset-bottom));
+    left: 0; 
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column; /* Stack controls vertically */
+    justify-content: flex-end;
+    gap: 12px; /* Space between Game buttons and System buttons */
+    
+    padding: 10px 20px;
+    z-index: 10000;
+    pointer-events: none;
+  }
+  
+  /* Hide the old system controls container if it exists */
+  .mobile-system-controls { display: none; }
+
+  /* --- ROW 1: GAMEPLAY BUTTONS --- */
+  .control-row-main {
+    display: flex;
+    justify-content: space-between; /* Spread Dpad and Drop apart */
+    align-items: center;
+    width: 100%;
+    max-width: 360px; 
+    margin: 0 auto; 
+  }
+
+  /* D-PAD */
+  .dpad {
+    pointer-events: auto;
+    display: grid;
+    grid-template-columns: 44px 44px 44px; /* Slightly smaller */
+    grid-template-rows: 44px 44px 44px;
+    grid-template-areas:
+      ".    up    ."
+      "left  .    right"
+      ".    down  .";
+    gap: 4px; 
+  }
+
+  /* Assign buttons to grid */
+  .ctrl-btn.up    { grid-area: up; }
+  .ctrl-btn.left  { grid-area: left; }
+  .ctrl-btn.right { grid-area: right; }
+  .ctrl-btn.down  { grid-area: down; }
+
+  /* ACTION BUTTON */
+  .actions {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 126px; 
+  }
+
+  /* Button Styling */
+  .ctrl-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    border-radius: 50%;
+    font-size: 20px; 
+    font-weight: bold;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 0 8px rgba(68, 241, 255, 0.2);
+    touch-action: manipulation;
+  }
+
+  .ctrl-btn:active {
+    background: var(--accent-cyan);
+    color: #000;
+    transform: scale(0.95);
+  }
+
+  .ctrl-btn.drop {
+    width: 60px; height: 60px; 
+    border-color: var(--accent-pink);
+    color: var(--accent-pink);
+    font-size: 14px;
+  }
+  
+  .ctrl-btn.drop:active { background: var(--accent-pink); }
+
+  /* --- ROW 2: SYSTEM BUTTONS (Pause/Reset) --- */
+  .control-row-system {
+    pointer-events: auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .sys-btn {
+    background: rgba(5, 8, 28, 0.85);
+    border: 1px solid var(--text-soft);
+    color: var(--text-soft);
+    padding: 10px 30px;
+    border-radius: 20px; /* Pill shape */
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    touch-action: manipulation;
+  }
+  
+  .sys-btn:active {
+    background: var(--text-soft);
+    color: #000;
+  }
+}
